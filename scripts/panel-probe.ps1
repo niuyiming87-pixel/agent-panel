@@ -99,6 +99,11 @@ function Get-HttpOk {
 function Test-LocalEndpoint {
     param([string]$Base, [int]$Timeout)
     $result = [ordered]@{ Url = $Base; Tcp = $false; Http = $false; Detail = '' }
+    # 容错：端点可能不带 scheme（例如写成 "127.0.0.1:1920/v1"）。
+    # 直接用 [Uri] 解析时它会把首个 token 当 scheme → Host 为空、Port = -1，
+    # 于是探测落到 80 端口并误报"离线"。（独立审查发现的真实缺陷，已回归验证）
+    if ($Base -notmatch '^[a-zA-Z][a-zA-Z0-9+.\-]*://') { $Base = "http://$Base" }
+    $result.Url = $Base
     try {
         $uri = [Uri]$Base
     } catch {

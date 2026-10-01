@@ -113,6 +113,8 @@ cp panel.example.yml panel.yml
 
 # 3. 开会前先探测阵容（避免"以为在线，其实全超时"）
 pwsh -File scripts/panel-probe.ps1 -Config panel.yml
+# 若在 Windows PowerShell 5.1 下被执行策略拦住，用：
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/panel-probe.ps1 -Config panel.yml
 ```
 
 然后在对话里说：
