@@ -1,0 +1,22 @@
+# 默认：仓库内存 LF，检出时按平台自动处理
+* text=auto
+
+# 行尾：Windows 脚本用 CRLF，其余用 LF
+*.ps1 eol=crlf
+*.md  text eol=lf
+*.yml text eol=lf
+
+# ⚠️ 关于 PowerShell 脚本的 UTF-8 BOM（重要）
+# panel-probe.ps1 里的 BOM 是**刻意提交进文件本身**的，不要移除、不要让编辑器剥掉：
+# PowerShell 5.1 会把「无 BOM 的 UTF-8」按系统 ANSI（中文 Windows = GBK）解析，
+# 脚本里的中文注释与字符串会立刻变乱码，并连带报出一堆看不懂的语法错误
+# （Unexpected token / The string is missing the terminator）。
+#
+# 这里刻意**不使用** `working-tree-encoding=UTF-8`：
+# 那个属性只在 `git clone` 检出时补 BOM，而 GitHub 的 "Download ZIP" 直接发仓库
+# 里存的内容，压缩包里会丢掉 BOM —— 于是下载 ZIP 的人在 PowerShell 5.1 上必崩。
+# 把 BOM 作为文件内容提交，clone 与 ZIP 两条路径都能保留它。
+#
+# 修改后自检（应为 EF BB BF）：
+#   $b = [IO.File]::ReadAllBytes('scripts/panel-probe.ps1')[0..2]
+#   ($b | ForEach-Object { $_.ToString('X2') }) -join ' '

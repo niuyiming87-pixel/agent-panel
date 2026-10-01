@@ -1,0 +1,22 @@
+# 本地配置（含个人路径/端口，不入库）
+panel.yml
+panel.local.yml
+
+# 探测与运行产物
+*.log
+probe-output.txt
+.tmp/
+tmp/
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# 密钥：任何形式都不入库
+*.key
+*.secret
+.env
+.env.*

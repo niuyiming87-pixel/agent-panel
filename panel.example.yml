@@ -1,0 +1,45 @@
+# ============================================================================
+#  agent-panel 配置示例
+#  用法：复制为 panel.yml 并按你的机器改。panel.yml 已在 .gitignore 里，
+#        个人路径与端口不会被提交。
+#
+#  解析规则（刻意保持简单）：只认扁平的 `key: value` 行；
+#  以 # 开头的是注释；不支持嵌套、列表、多行字符串。
+#  值为 <尖括号包起来> 的占位符会被忽略（视为未配置）。
+# ============================================================================
+
+# ---- CLI agent（云端免费模型的入口）--------------------------------------
+# 你的 CLI coding agent 可执行文件的绝对路径。
+# Windows 示例：C:/Users/you/AppData/Local/Programs/<vendor>/resources/<agent>-cli.exe
+# macOS/Linux 示例：/usr/local/bin/<agent>
+opencode.cli_path: <OPENCODE_CLI>
+
+# 免费模型 ID —— 注意：免费 ID 会轮换/下架，先用 `models` 子命令拉取当前列表，
+# 不要把这个值当成长期有效的配置。
+opencode.model: <FREE_MODEL_ID>
+
+# 免费 ID 失效时的回退顺序（逗号分隔，探测到失效就按序尝试）
+opencode.fallback_models: <FREE_MODEL_ID_2>,<FREE_MODEL_ID_3>
+
+# ---- 本地端点 A（通常是小模型：快、省显存）-------------------------------
+local_a.url: http://127.0.0.1:1920/v1
+local_a.model: <LOCAL_MODEL_A>
+
+# ---- 本地端点 B（通常是大模型：慢、更准）---------------------------------
+local_b.url: http://127.0.0.1:1919/v1
+local_b.model: <LOCAL_MODEL_B>
+
+# ---- 超时（秒）-----------------------------------------------------------
+timeouts.opencode_s: 180
+timeouts.local_s: 300
+
+# ---- 隐私闸门 ------------------------------------------------------------
+# false = 剔除所有云端成员（只保留本地端点 + 宿主模型）。
+# 处理个人文件、未公开源码、任何密钥相关内容时设为 false。
+privacy.cloud_allowed: true
+
+# ---- 一次性工人实例（可选，用于"强脑指挥弱脑"）---------------------------
+# 工人的独立 HOME：把工人配置与你的主配置隔离，避免被主配置的默认模型劫持。
+worker.home: <WORKER_HOME>
+worker.patch: <WORKER_PATCH>
+worker.api_key_placeholder: local
