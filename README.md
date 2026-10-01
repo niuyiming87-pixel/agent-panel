@@ -1,5 +1,7 @@
 # agent-panel · 多脑会诊面板
 
+**中文** | [English](README.en.md)
+
 > 把一个问题同时丢给**多个真正独立的 AI**，然后产出一份「共识 / 独有观点 / 矛盾点 / 裁判总结」的报告——而不是一个模型的单一答案。
 >
 > An Agent Skill that polls several independent AI "brains" in parallel (a CLI coding agent on free cloud models, one or more local OpenAI-compatible endpoints, the host model itself, plus optional human-bridged GUI apps) and aggregates their answers into a consensus / unique-findings / contradictions report. Written as a portable **Agent Skill** — no code required to use it, one optional PowerShell probe script included.
@@ -238,6 +240,7 @@ pwsh -File scripts/panel-probe.ps1 -Config panel.yml
 agent-panel/
 ├── SKILL.md                  # 技能本体（消毒后的可移植版本）
 ├── README.md                 # 本文件：设计思路与取舍
+├── README.en.md             # 英文版（同样的设计思路）
 ├── panel.example.yml         # 配置模板（扁平 key: value）
 ├── scripts/
 │   └── panel-probe.ps1       # 成员可用性探测
